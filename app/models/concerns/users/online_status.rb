@@ -21,7 +21,7 @@ module Concerns
 
       module ClassMethods
         def online_count
-          $redis.hlen HASH_KEY
+          $redis.hgetall(HASH_KEY).map{|k,v| v.to_i > 0 ? 1 : 0}.inject(0,:+)
         end
       end
 

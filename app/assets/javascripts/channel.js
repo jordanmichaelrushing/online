@@ -51,6 +51,7 @@ var UserMonitor = (function() {
         channel.bind('seen', userOnline);
         channel.bind('left', userOffline);
         setOnlineUserCount();
+        $(".left").on('click',function(){channel.trigger('left')})
     }
 
     function setOnlineUserCount() {

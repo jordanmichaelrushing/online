@@ -2,13 +2,15 @@
 <html>
 <head>
   <title>Online</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
+  <% if user_signed_in? %>
+    <a class="btn btn-default btn-small pull-right left" href="/logout">Sign Out</a>
+  <% end %>
+  <%= yield %>
 
 </body>
 </html>

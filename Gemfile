@@ -29,6 +29,7 @@ gem 'spring',        group: :development
 gem 'devise'
 gem 'redis'
 gem 'websocket-rails'
+gem 'haml'
 gem 'activerecord-deprecated_finders', require: 'active_record/deprecated_finders'
 
 # Use ActiveModel has_secure_password

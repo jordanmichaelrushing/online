@@ -1,0 +1,12 @@
+%br
+- @online_users.each do |user|
+  %div
+    = user.email 
+    - 
+    %span.online-user{data: { user: {id: user.id }}}
+      = user.online? ? 'online' : 'offline'
+
+%div
+  %span#online-user-count
+    = @online_user_count
+  users currently online
