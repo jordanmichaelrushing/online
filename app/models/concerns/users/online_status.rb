@@ -3,25 +3,24 @@ module Concerns
     module OnlineStatus
       extend ActiveSupport::Concern
 
-      HASH_KEY = 'online_users'
+      ONLINE_KEY = 'online_users'
 
       def online?
-        $redis.hget(HASH_KEY, self.id).to_i > 0
+        $redis.hget(ONLINE_KEY, self.id).to_i > 0
       end
 
       def seen
-        $redis.hincrby(HASH_KEY, self.id, 1)
+        $redis.hset(ONLINE_KEY, self.id, 1)
       end
 
       def left
-        user_connections = $redis.hincrby(HASH_KEY, self.id, -1)
-        $redis.hdel(HASH_KEY, self.id) if user_connections <= 0
+        user_connections = $redis.hincrby(ONLINE_KEY, self.id, -1)
         user_connections
       end
 
       module ClassMethods
         def online_count
-          $redis.hgetall(HASH_KEY).map{|k,v| v.to_i > 0 ? 1 : 0}.inject(0,:+)
+          $redis.hgetall(ONLINE_KEY).map{|k,v| v.to_i > 0 ? 1 : 0}.inject(0,:+)
         end
       end
 

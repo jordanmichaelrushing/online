@@ -51,7 +51,7 @@ var UserMonitor = (function() {
         channel.bind('seen', userOnline);
         channel.bind('left', userOffline);
         setOnlineUserCount();
-        $(".left").on('click',function(){channel.trigger('left')})
+        $(".left").on('click',function(e) { dispatcher.trigger('client_disconnected', {});})
     }
 
     function setOnlineUserCount() {
@@ -62,7 +62,7 @@ var UserMonitor = (function() {
     }
 
     function userOnline(user) {
-        var $onlineUser = $('.user-online[data-user-id="'+user.id+'"]');
+        var $onlineUser = $('.online-user[data-user-id="'+user.id+'"]');
         $onlineUser.addClass('online');
         $onlineUser.removeClass('offline');
         $onlineUser.html('online');
@@ -72,7 +72,7 @@ var UserMonitor = (function() {
     }
 
     function userOffline(user) {
-        var $offlineUser = $('.user-online[data-user-id="'+user.id+'"]');
+        var $offlineUser = $('.online-user[data-user-id="'+user.id+'"]');
         $offlineUser.removeClass('online');
         $offlineUser.addClass('offline');
         $offlineUser.html('offline');
